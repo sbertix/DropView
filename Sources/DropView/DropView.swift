@@ -9,6 +9,8 @@ import SwiftUI
 
 /// A `struct` defining a view displaying `Drop`s.
 public struct DropView: View {
+    /// The color scheme.
+    @Environment(\.colorScheme) var colorScheme
     /// The pixel length.
     @Environment(\.pixelLength) var pixelLength
 
@@ -47,9 +49,9 @@ public struct DropView: View {
                        bottom: drop.subtitle == nil ? 15 : 10,
                        trailing: drop.hasAction ? 12.5 : drop.hasIcon ? 40 : 50))
         .frame(minHeight: 50)
-        .background(Color(.secondarySystemBackground))
+        .background(Color.dropBackground(for: colorScheme))
         .mask(Capsule())
-        .overlay(Capsule().strokeBorder(Color(.opaqueSeparator).opacity(0.25), lineWidth: pixelLength))
+        .overlay(Capsule().strokeBorder(Color.dropSeparator(for: colorScheme), lineWidth: pixelLength))
         .shadow(color: .black.opacity(0.15),
                 radius: 25,
                 x: 0,

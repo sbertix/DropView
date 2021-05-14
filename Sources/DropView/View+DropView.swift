@@ -25,8 +25,7 @@ public extension View {
     }
 }
 
-#if DEBUG
-
+#if DEBUG && !os(tvOS)
 private struct DropPreviewView: View {
     /// An optional `Drop` binding.
     @State var drop: Drop?
