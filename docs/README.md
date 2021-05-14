@@ -1,20 +1,19 @@
-<br />
-<img alt="Header" src="https://github.com/sbertix/DropView/blob/main/Resources/header.png" height="72" />
-<br />
-
-[![Swift](https://img.shields.io/badge/Swift-5.2-%23DE5C43?style=flat&logo=swift)](https://swift.org)
-![iOS](https://img.shields.io/badge/iOS-13.0-DD5D43)
+<img alt="Notification" src="https://github.com/sbertix/DropView/blob/main/Resources/notification.png" />
 
 <br />
 
 **DropView** is a **SwiftUI**-based library to display alerts inspired by the Apple Pencil and pasteboard stock ones. 
 
-<img alt="Notification" src="https://github.com/sbertix/DropView/blob/main/Resources/notification.png" />
-
 <p />
 
 ## Status
-![push](https://github.com/sbertix/DropView/workflows/push/badge.svg)
+[![Swift](https://img.shields.io/badge/Swift-5.2-%239872AB?style=flat&logo=swift)](https://swift.org)
+![iOS](https://img.shields.io/badge/iOS-13.0-9872AB)
+![macOS](https://img.shields.io/badge/macOS-10.15-9872AB)
+![tvOS](https://img.shields.io/badge/tvOS-13.0-9872AB)
+![watchOS](https://img.shields.io/badge/watchOS-6.0-9872AB)
+<br />
+[![checks](https://github.com/sbertix/DropView/actions/workflows/push.yml/badge.svg?branch=main)](https://github.com/sbertix/DropView/actions/workflows/push.yml)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/sbertix/DropView)
 
 You can find all changelogs directly under every [release](https://github.com/sbertix/DropView/releases).
@@ -45,6 +44,11 @@ Furthermore, with the integration of the **Swift Package Manager** in **Xcode 11
 ## Usage
 
 **DropView** allows you to present alerts just like `sheet`s and `fullScreenCover`s. 
+
+Just call `.drop($drop)` on any `View`. 
+
+<details><summary><strong>Example</strong></summary>
+    <p>
 
 ```swift
 import SwiftUI
@@ -96,8 +100,11 @@ struct YourView: View {
     }
 }
 ```
+</details>
+
+<p />
 
 ## Special thanks
 
-> _Massive thanks to anyone contributing to [omaralbeik/Drops](https://github.com/omaralbeik/Drops) for the inspiration_
+> _Massive thanks to anyone contributing to [omaralbeik/Drops](https://github.com/omaralbeik/Drops) for the inspiration._
 
