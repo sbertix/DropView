@@ -29,7 +29,6 @@ struct DropPresenterView: View {
 }
 
 #if DEBUG
-
 struct DropPresenterViewPreview: PreviewProvider {
     static var previews: some View {
         DropPresenterView(drop: .init(title: "A notification",
@@ -49,5 +48,4 @@ struct DropPresenterViewPreview: PreviewProvider {
             .previewDisplayName("Top (Dark)")
     }
 }
-
 #endif

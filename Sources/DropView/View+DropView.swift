@@ -76,5 +76,4 @@ struct ViewDropPreview: PreviewProvider {
         DropPreviewView()
     }
 }
-
 #endif

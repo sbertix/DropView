@@ -52,7 +52,7 @@ public struct DropView: View {
         .background(Color.dropBackground(for: colorScheme))
         .mask(Capsule())
         .overlay(Capsule().strokeBorder(Color.dropSeparator(for: colorScheme), lineWidth: pixelLength))
-        .shadow(color: .black.opacity(0.15),
+        .shadow(color: Color.black.opacity(0.15),
                 radius: 25,
                 x: 0,
                 y: 0)
@@ -61,7 +61,6 @@ public struct DropView: View {
 }
 
 #if DEBUG
-
 struct DropViewPreview: PreviewProvider {
     static var previews: some View {
         DropView(drop: .init(title: "DropView",
@@ -89,5 +88,4 @@ struct DropViewPreview: PreviewProvider {
         }
     }
 }
-
 #endif

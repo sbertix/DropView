@@ -21,11 +21,11 @@ struct DropPresenterViewModifier: ViewModifier {
     private var transition: AnyTransition {
         switch alignment {
         case .top:
-            return .offset(x: 0, y: -200).combined(with: .opacity)
+            return AnyTransition.offset(x: 0, y: -200).combined(with: .opacity)
         case .bottom:
-            return .offset(x: 0, y: 200).combined(with: .opacity)
+            return AnyTransition.offset(x: 0, y: 200).combined(with: .opacity)
         default:
-            return .scale.combined(with: .opacity)
+            return AnyTransition.scale.combined(with: .opacity)
         }
     }
 
