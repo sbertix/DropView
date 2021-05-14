@@ -20,6 +20,9 @@ You can find all changelogs directly under every [release](https://github.com/sb
 
 > What's next?
 
+- [ ] Drag to dismiss
+- [ ] Accessibility support
+
 [Milestones](https://github.com/sbertix/DropView/milestones) and [issues](https://github.com/sbertix/DropView/issues) are the best way to keep updated with active developement.
 
 Feel free to contribute by sending a [pull request](https://github.com/sbertix/DropView/pulls).
