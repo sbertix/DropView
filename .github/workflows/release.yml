@@ -1,0 +1,80 @@
+name:                        release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # release a new version.
+  release:
+    name:                    Release
+    runs-on:                 ubuntu-latest
+
+    steps:
+      # checkout `main`.
+      - name:                Checkout
+        id:                  checkout
+        uses:                actions/checkout@v2
+        with:
+          fetch-depth:       0
+          token:             ${{ secrets.GITHUB_TOKEN }}
+          ref:               main
+      # create the changelog.
+      - name:                Changelog
+        id:                  changelog
+        uses:                TriPSs/conventional-changelog-action@v3
+        with:
+          git-message:       "chore(release): relase \'v{version}\'"
+          git-user-name:     "github-actions"
+          git-user-email:    "41898282+github-actions[bot]@users.noreply.github.com"
+          github-token:      ${{ secrets.GITHUB_TOKEN }}
+          tag-prefix:        ''
+          output-file:       'false'
+          skip-commit:       'true'
+          skip-version-file: 'true'
+      # release the new version.
+      - name:                Release
+        id:                  release
+        uses:                actions/create-release@v1
+        if:                  ${{ steps.changelog.outputs.skipped == 'false' }}
+        env:
+          GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name:          ${{ steps.changelog.outputs.tag }}
+          release_name:      v${{ steps.changelog.outputs.tag }}
+          body:              ${{ steps.changelog.outputs.clean_changelog }}
+
+  # create docs.
+  docs:
+    name:                    Docs
+    needs:                   release
+    runs-on:                 ubuntu-latest
+
+    steps:
+      # checkout the `main` branch.
+      - name:                Checkout
+        id:                  checkout
+        uses:                actions/checkout@v2
+        with:
+          token:             ${{ secrets.GITHUB_TOKEN }}
+          ref:               main
+      # create documentation
+      - name:                Docs
+        uses:                SwiftDocOrg/swift-doc@master
+        with:
+          base-url:          "https://sbertix.github.io/DropView"
+          format:            "html"
+          inputs:            "Sources"
+          module-name:       DropView
+          output:            docs/DropView
+      # update permissions.
+      - name:                Update Permissions
+        run:                 'sudo chown --recursive $USER docs'
+      # publish to GitHub pages.
+      - name:                Publish
+        uses:                JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN:      ${{ secrets.CHATOPS_PAT }}
+          BRANCH:            gh-pages
+          FOLDER:            docs
