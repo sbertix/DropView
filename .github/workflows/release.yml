@@ -63,7 +63,7 @@ jobs:
       - name:                Docs
         uses:                SwiftDocOrg/swift-doc@master
         with:
-          base-url:          "https://sbertix.github.io/DropView"
+          base-url:          "https://sbertix.github.io/DropView/"
           format:            "html"
           inputs:            "Sources"
           module-name:       DropView
