@@ -30,12 +30,16 @@ public struct DropView: View {
             drop.icon.layoutPriority(2)
             VStack(spacing: 0) {
                 Text(drop.title)
+                    .bold()
+                    .accessibility(value: Text("Title"))
+                    .accessibility(value: Text(drop.title))
                     .foregroundColor(.primary)
                     .font(.subheadline)
-                    .bold()
                     .layoutPriority(1)
-                if let subtitle = drop.subtitle {
+                if let subtitle = drop.subtitle, !subtitle.isEmpty {
                     Text(subtitle)
+                        .accessibility(value: Text("Subtitle"))
+                        .accessibility(value: Text(subtitle))
                         .foregroundColor(.secondary)
                         .font(.subheadline)
                         .layoutPriority(0)
@@ -56,7 +60,6 @@ public struct DropView: View {
                 radius: 25,
                 x: 0,
                 y: 0)
-        .padding()
     }
 }
 
@@ -68,7 +71,6 @@ struct DropViewPreview: PreviewProvider {
                              icon: Image(systemName: "hand.wave.fill").resizable(),
                              action: Image(systemName: "star.circle.fill").resizable()))
             .previewLayout(.fixed(width: 500, height: 200))
-
         VStack(spacing: 8) {
             DropView(drop: .init(title: "A notification",
                                  subtitle: "This could be left empty"))

@@ -19,14 +19,18 @@ public extension View {
     func drop(_ drop: Binding<Drop?>,
               hidingAfter seconds: TimeInterval = 2,
               alignment: VerticalAlignment = .top) -> some View {
-        modifier(DropPresenterViewModifier(drop: drop,
-                                           hidingAfter: seconds,
-                                           alignment: alignment))
+        frame(maxWidth: .infinity, maxHeight: .infinity)
+            .overlay(DropPresenterView(drop: drop, alignment: alignment, seconds: seconds)
+                        .id(drop.wrappedValue?.id)
+                        .animation(.spring()))
     }
 }
 
-#if DEBUG && !os(tvOS)
+#if DEBUG && os(iOS)
 private struct DropPreviewView: View {
+    /// The current color scheme.
+    @Environment(\.colorScheme) var colorScheme
+
     /// An optional `Drop` binding.
     @State var drop: Drop?
     /// The current posiiton.
@@ -43,29 +47,63 @@ private struct DropPreviewView: View {
         }
     }
 
+    /// Compose the current drop.
+    private var newDrop: Drop {
+        .init(title: "DropView",
+              subtitle: "github.com/sbertix/DropView",
+              icon: Image(systemName: "hand.wave.fill").resizable(),
+              action: Image(systemName: "star.circle.fill").resizable())
+    }
+
     /// The underlying view.
     var body: some View {
-        VStack(spacing: 8) {
-            Slider(value: $seconds, in: 2...10)
-                .padding(.horizontal)
-            Picker("Alignment", selection: $alignmentValue) {
-                Text("Top").tag(0)
-                Text("Center").tag(1)
-                Text("Bottom").tag(2)
+        NavigationView {
+            Form {
+                Section(header: Text("Seconds until autohides")) {
+                    VStack {
+                        Slider(value: $seconds, in: 2...10)
+                        HStack {
+                            Text("2")
+                            Spacer()
+                            Text("10")
+                        }
+                        .font(Font.subheadline.monospacedDigit())
+                    }
+                    .foregroundColor(.secondary)
+                    .padding(.vertical, 8)
+                }
+                Section(header: Text("Alignment")) {
+                    Picker("Alignment", selection: $alignmentValue) {
+                        Text("Top").tag(0)
+                        Text("Center").tag(1)
+                        Text("Bottom").tag(2)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(.vertical, 8)
+                }
+                // Present or hide some drop.
+                HStack {
+                    HStack(spacing: 0) {
+                        Text("Present")
+                            .font(Font.headline)
+                            .foregroundColor(.blue)
+                            .padding(24)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .contentShape(Rectangle())
+                            .onTapGesture { self.drop = newDrop }
+                        Divider()
+                        Text("Dismiss")
+                            .font(Font.headline)
+                            .foregroundColor(.red)
+                            .padding(24)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .contentShape(Rectangle())
+                            .onTapGesture { self.drop = nil }
+                    }
+                }
+                .listRowInsets(.init())
             }
-            Button(action: {
-                drop = .init(title: "DropView",
-                             subtitle: "github.com/sbertix/DropView",
-                             icon: Image(systemName: "hand.wave.fill").resizable(),
-                             action: Image(systemName: "star.circle.fill").resizable())
-            }) {
-                Text("Present").bold()
-            }
-            Button(action: {
-                drop = nil
-            }) {
-                Text("Hide").foregroundColor(.red)
-            }
+            .navigationBarTitle("Setup")
         }
         .drop($drop, hidingAfter: seconds, alignment: alignment)
     }
