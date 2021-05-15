@@ -56,7 +56,6 @@ public struct DropView: View {
                 radius: 25,
                 x: 0,
                 y: 0)
-        .padding()
     }
 }
 
@@ -68,7 +67,6 @@ struct DropViewPreview: PreviewProvider {
                              icon: Image(systemName: "hand.wave.fill").resizable(),
                              action: Image(systemName: "star.circle.fill").resizable()))
             .previewLayout(.fixed(width: 500, height: 200))
-
         VStack(spacing: 8) {
             DropView(drop: .init(title: "A notification",
                                  subtitle: "This could be left empty"))

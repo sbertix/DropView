@@ -19,6 +19,8 @@ struct DropPresenterView: View {
         drop.flatMap { drop in
             GeometryReader { proxy in
                 DropView(drop: drop)
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
                     .frame(width: 0.9*proxy.size.width)
                     .frame(maxWidth: .infinity,
                            maxHeight: .infinity,
