@@ -4,6 +4,16 @@
 
 **DropView** is a **SwiftUI**-based library to display alerts inspired by the Apple Pencil and pasteboard stock ones. 
 
+<br />
+
+> What are some features I can expect from this library?
+
+- [x] Dark mode
+- [x] Interactive dismissal
+- [x] Dynamic font sizing
+- [x] Accessibility support
+- [x] Custom positioning (`.top`, `.bottom` and `.center`)
+
 <p />
 
 ## Status
@@ -19,9 +29,6 @@
 You can find all changelogs directly under every [release](https://github.com/sbertix/DropView/releases).
 
 > What's next?
-
-- [ ] Drag to dismiss
-- [ ] Accessibility support
 
 [Milestones](https://github.com/sbertix/DropView/milestones) and [issues](https://github.com/sbertix/DropView/issues) are the best way to keep updated with active developement.
 
