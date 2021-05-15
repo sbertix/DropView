@@ -19,9 +19,10 @@ public extension View {
     func drop(_ drop: Binding<Drop?>,
               hidingAfter seconds: TimeInterval = 2,
               alignment: VerticalAlignment = .top) -> some View {
-        modifier(DropPresenterViewModifier(drop: drop,
-                                           hidingAfter: seconds,
-                                           alignment: alignment))
+        frame(maxWidth: .infinity, maxHeight: .infinity)
+            .overlay(DropPresenterView(drop: drop, alignment: alignment, seconds: seconds)
+                        .id(drop.wrappedValue?.id)
+                        .animation(.spring()))
     }
 }
 
