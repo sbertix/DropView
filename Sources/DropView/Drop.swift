@@ -39,8 +39,8 @@ public struct Drop: Identifiable {
                                           icon: Icon,
                                           action: Action) {
         self.id = id
-        self.title = title
-        self.subtitle = subtitle
+        self.title = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.subtitle = subtitle?.trimmingCharacters(in: .whitespacesAndNewlines)
         self.icon = AnyView(icon.frame(width: 25, height: 25).fixedSize().foregroundColor(.secondary))
         self.action = AnyView(action.frame(width: 35, height: 35).fixedSize().foregroundColor(.accentColor))
         self.hasIcon = !(icon is EmptyView)
