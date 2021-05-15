@@ -48,7 +48,6 @@ jobs:
   # create docs.
   docs:
     name:                    Docs
-    needs:                   release
     runs-on:                 ubuntu-latest
 
     steps:
@@ -59,20 +58,33 @@ jobs:
         with:
           token:             ${{ secrets.GITHUB_TOKEN }}
           ref:               main
+      # filter changes.
+      - uses:                dorny/paths-filter@v2
+        id:                  changes
+        with:
+          base:              ${{ github.event.push.before }}
+          ref:               ${{ github.event.push.head }}
+          filters:           |
+            src:
+              - '**/*.swift'
+              - '**/release.yml'
       # create documentation
       - name:                Docs
         uses:                SwiftDocOrg/swift-doc@master
+        if:                  steps.changes.outputs.src == 'true'
         with:
-          base-url:          "https://sbertix.github.io/DropView/"
+          base-url:          "https://sbertix.github.io/DropView/DropView/"
           format:            "html"
           inputs:            "Sources"
           module-name:       DropView
           output:            docs/DropView
       # update permissions.
       - name:                Update Permissions
+        if:                  steps.changes.outputs.src == 'true'
         run:                 'sudo chown --recursive $USER docs'
       # publish to GitHub pages.
       - name:                Publish
+        if:                  steps.changes.outputs.src == 'true'
         uses:                JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN:      ${{ secrets.CHATOPS_PAT }}
