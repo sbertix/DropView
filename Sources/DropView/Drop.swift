@@ -105,7 +105,7 @@ extension Drop: Equatable {
     ///
     /// - note: `Drop` are considered equal when their underlying `id` is the same.
     /// - returns: A valid `Bool`.
-    public static func ==(lhs: Drop, rhs: Drop) -> Bool {
+    public static func == (lhs: Drop, rhs: Drop) -> Bool {
         lhs.id == rhs.id
     }
 }

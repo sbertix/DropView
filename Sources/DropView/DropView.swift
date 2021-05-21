@@ -17,13 +17,6 @@ public struct DropView: View {
     /// The underlying drop.
     public let drop: Drop
 
-    /// Init.
-    ///
-    /// - parameter drop: A valid `Drop`.
-    public init(drop: Drop) {
-        self.drop = drop
-    }
-
     /// The body.
     public var body: some View {
         HStack(spacing: 20) {
@@ -61,10 +54,17 @@ public struct DropView: View {
                 x: 0,
                 y: 0)
     }
+
+    /// Init.
+    ///
+    /// - parameter drop: A valid `Drop`.
+    public init(drop: Drop) {
+        self.drop = drop
+    }
 }
 
 #if DEBUG
-struct DropViewPreview: PreviewProvider {
+internal struct DropViewPreview: PreviewProvider {
     static var previews: some View {
         DropView(drop: .init(title: "DropView",
                              subtitle: "github.com/sbertix/DropView",

@@ -8,24 +8,6 @@
 import Combine
 import SwiftUI
 
-public extension View {
-    /// Present a valid `Drop`.
-    ///
-    /// - parameters:
-    ///     - drop: An optional `Drop` binding.
-    ///     - seconds: A valid `TimeInterval`. Defaults to `2`.
-    ///     - alignment: A valid `VerticalAlignment`. Defaults to `.top`.
-    /// - returns: Some `View`.
-    func drop(_ drop: Binding<Drop?>,
-              hidingAfter seconds: TimeInterval = 2,
-              alignment: VerticalAlignment = .top) -> some View {
-        frame(maxWidth: .infinity, maxHeight: .infinity)
-            .overlay(DropPresenterView(drop: drop, alignment: alignment, seconds: seconds)
-                        .id(drop.wrappedValue?.id)
-                        .animation(.spring()))
-    }
-}
-
 #if DEBUG && os(iOS)
 private struct DropPreviewView: View {
     /// The current color scheme.
@@ -41,9 +23,12 @@ private struct DropPreviewView: View {
     /// The vertical alignment.
     private var alignment: VerticalAlignment {
         switch alignmentValue {
-        case 1: return .center
-        case 2: return .bottom
-        default: return .top
+        case 1:
+            return .center
+        case 2:
+            return .bottom
+        default:
+            return .top
         }
     }
 
@@ -108,8 +93,28 @@ private struct DropPreviewView: View {
         .drop($drop, hidingAfter: seconds, alignment: alignment)
     }
 }
+#endif
 
-struct ViewDropPreview: PreviewProvider {
+public extension View {
+    /// Present a valid `Drop`.
+    ///
+    /// - parameters:
+    ///     - drop: An optional `Drop` binding.
+    ///     - seconds: A valid `TimeInterval`. Defaults to `2`.
+    ///     - alignment: A valid `VerticalAlignment`. Defaults to `.top`.
+    /// - returns: Some `View`.
+    func drop(_ drop: Binding<Drop?>,
+              hidingAfter seconds: TimeInterval = 2,
+              alignment: VerticalAlignment = .top) -> some View {
+        frame(maxWidth: .infinity, maxHeight: .infinity)
+            .overlay(DropPresenterView(drop: drop, alignment: alignment, seconds: seconds)
+                        .id(drop.wrappedValue?.id)
+                        .animation(.spring()))
+    }
+}
+
+#if DEBUG && os(iOS)
+internal struct ViewDropPreview: PreviewProvider {
     static var previews: some View {
         DropPreviewView()
     }
