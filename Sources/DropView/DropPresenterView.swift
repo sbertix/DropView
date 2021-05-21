@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 /// A `struct` defining a view tasked with presenting `Drop`s.
-struct DropPresenterView: View {
+internal struct DropPresenterView: View {
     /// The gesture state.
     @GestureState var translation: CGFloat = 0
     /// The time when it should hide.
@@ -45,7 +45,7 @@ struct DropPresenterView: View {
         case .top where translation < 0,
              .bottom where translation > 0,
              .center:
-            return max(1-pow(Double(abs(translation))/60, 3), 0)
+            return max(1 - pow(Double(abs(translation)) / 60, 3), 0)
         default:
             return 1
         }
@@ -73,21 +73,6 @@ struct DropPresenterView: View {
         }
     }
 
-    /// Init.
-    ///
-    /// - parameters:
-    ///     - drop: An optional `Drop` binding.
-    ///     - alignment: A valid `VerticalAlignment`.
-    ///     - seconds: A valid `TimeInterval`.
-    init(drop: Binding<Drop?>,
-         alignment: VerticalAlignment,
-         seconds: TimeInterval) {
-        self._drop = drop
-        self._date = .init(initialValue: .init(timeIntervalSinceNow: seconds))
-        self.alignment = alignment
-        self.seconds = seconds
-    }
-
     /// The underlying view.
     var body: some View {
         drop.flatMap { drop in
@@ -110,10 +95,10 @@ struct DropPresenterView: View {
                                     switch alignment {
                                     case .center where min(predicated, end) < start,
                                          .top where min(predicated, end) < start:
-                                        delta = abs(min(predicated, end)-start)
+                                        delta = abs(min(predicated, end) - start)
                                     case .center where max(predicated, end) > start,
                                         .bottom where max(predicated, end) > start:
-                                        delta = abs(max(predicated, end)-start)
+                                        delta = abs(max(predicated, end) - start)
                                     default:
                                         delta = 0
                                     }
@@ -123,7 +108,7 @@ struct DropPresenterView: View {
                                 })
                     .padding(.horizontal)
                     .padding(.vertical, 8)
-                    .frame(width: 0.9*proxy.size.width)
+                    .frame(width: 0.9 * proxy.size.width)
                     .frame(maxWidth: .infinity,
                            maxHeight: .infinity,
                            alignment: .init(horizontal: .center, vertical: alignment))
@@ -137,5 +122,20 @@ struct DropPresenterView: View {
         .onReceive(Just(drop?.id).receive(on: RunLoop.main)) {
             date = $0 == nil ? .distantFuture : .init(timeIntervalSinceNow: seconds)
         }
+    }
+
+    /// Init.
+    ///
+    /// - parameters:
+    ///     - drop: An optional `Drop` binding.
+    ///     - alignment: A valid `VerticalAlignment`.
+    ///     - seconds: A valid `TimeInterval`.
+    init(drop: Binding<Drop?>,
+         alignment: VerticalAlignment,
+         seconds: TimeInterval) {
+        self._drop = drop
+        self._date = .init(initialValue: .init(timeIntervalSinceNow: seconds))
+        self.alignment = alignment
+        self.seconds = seconds
     }
 }
