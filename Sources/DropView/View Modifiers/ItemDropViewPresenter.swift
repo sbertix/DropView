@@ -11,7 +11,7 @@ import SwiftUI
 
 /// A `struct` defining a view modifier
 /// tasked with overlaying the drop view.
-private struct ItemDropViewPresenter<Item: Identifiable, C: View, L: View, R: View>: ViewModifier {
+private struct ItemDropViewPresenter<Item: Identifiable, C: View>: ViewModifier {
     /// The drag gesture translation.
     @GestureState var translation: CGFloat = 0
 
@@ -21,8 +21,10 @@ private struct ItemDropViewPresenter<Item: Identifiable, C: View, L: View, R: Vi
     let alignment: VerticalAlignment
     /// The auto-dismiss time interval.
     let timer: TimeInterval
+    /// Whether it should dismiss the drop view on drag or not.
+    let shouldDismissOnDrag: Bool
     /// The drop view factory.
-    let dropView: (Item) -> DropView<C, L, R>
+    let dropView: (Item) -> C
 
     /// The associated transition edge.
     private var edge: Edge {
@@ -49,7 +51,9 @@ private struct ItemDropViewPresenter<Item: Identifiable, C: View, L: View, R: Vi
                     )
                     .gesture(
                         // Drag-to-dismiss.
-                        DragGesture()
+                        !shouldDismissOnDrag
+                        ? nil
+                        : DragGesture()
                             .updating($translation) { change, state, _ in
                                 switch alignment {
                                 case .center: state = min(change.translation.width, 0)
@@ -83,18 +87,21 @@ public extension View {
     ///     - isPresented: An optional `Identifiable` binding.
     ///     - alignment: A valid `VerticalAlignment`. Defaults to `.top`.
     ///     - timer: The time before it gets autodismissed. Defaults to `2`.
+    ///     - shouldDismissOnDrag: Whether dragging the drop view should dismiss it or not. Defaults to `true`.
     ///     - content: The drop view factory.
     /// - returns: Some `View`.
-    @ViewBuilder func drop<I: Identifiable, C: View, L: View, T: View>(
+    @ViewBuilder func drop<I: Identifiable, C: View>(
         item: Binding<I?>,
         alignment: VerticalAlignment = .top,
         dismissingAfter timer: TimeInterval = 2,
-        @ViewBuilder content: @escaping (I) -> DropView<C, L, T>
+        dismissingOnDrag shouldDismissOnDrag: Bool = true,
+        @ViewBuilder content: @escaping (I) -> C
     ) -> some View {
         modifier(ItemDropViewPresenter(
             item: item,
             alignment: alignment,
             timer: timer,
+            shouldDismissOnDrag: shouldDismissOnDrag,
             dropView: content
         ))
     }
