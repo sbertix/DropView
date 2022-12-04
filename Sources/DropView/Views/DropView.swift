@@ -46,25 +46,40 @@ public struct DropView<Content: View, Leading: View, Trailing: View>: View {
     /// The underlying view.
     public var body: some View {
         HStack(spacing: horizontalSpacing) {
-            leading
-                .fixedSize()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: accessoryWidth, alignment: .leading)
-                .background(GeometryReader {
-                    Color.clear.preference(key: NewDropViewWidthPreferenceKey.self, value: [$0.size.width])
-                })
+            if case .default = balancing,
+               leading is EmptyView,
+               !(trailing is EmptyView) {
+                // Add balancing when there's no `leading`.
+                Color.clear.frame(width: accessoryWidth ?? 0)
+            } else {
+                leading
+                    .fixedSize()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: accessoryWidth, alignment: .leading)
+                    .background(GeometryReader {
+                        Color.clear.preference(key: NewDropViewWidthPreferenceKey.self, value: [$0.size.width])
+                    })
+            }
             // `content` should be automatically
             // displayed vertically.
             VStack(spacing: verticalSpacing) {
                 content.fixedSize()
             }.multilineTextAlignment(.center)
-            trailing
-                .fixedSize()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: accessoryWidth, alignment: .trailing)
-                .background(GeometryReader {
-                    Color.clear.preference(key: NewDropViewWidthPreferenceKey.self, value: [$0.size.width])
-                })
+            
+            if case .default = balancing,
+               !(leading is EmptyView),
+               trailing is EmptyView {
+                // Add balancing when there's no `trailing`.
+                Color.clear.frame(width: accessoryWidth ?? 0)
+            } else {
+                trailing
+                    .fixedSize()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: accessoryWidth, alignment: .trailing)
+                    .background(GeometryReader {
+                        Color.clear.preference(key: NewDropViewWidthPreferenceKey.self, value: [$0.size.width])
+                    })
+            }
         }
         .fixedSize(horizontal: false, vertical: true)
         // Handle changes to accessory widths.
@@ -128,11 +143,6 @@ struct Previews_DropView_Previews: PreviewProvider { // swiftlint:disable:this t
                 .imageScale(.large)
                 .font(.headline)
                 .foregroundColor(.secondary)
-        } trailing: {
-            Image(systemName: "star.circle.fill")
-                .resizable()
-                .frame(width: 40, height: 40)
-                .foregroundColor(.accentColor)
         }
         .padding(40)
         .previewLayout(.sizeThatFits)
