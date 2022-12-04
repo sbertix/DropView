@@ -17,7 +17,7 @@ jobs:
           ref:          ${{ github.event.pull_request_target.head.sha }}
       # validate commits.
       - name:           Validate commits
-        uses:           KevinDeJong-TomTom/commisery-action@master
+        uses:           tomtom-international/commisery-action@master
         with:
           token:        ${{ secrets.GITHUB_TOKEN }}
           pull_request: ${{ github.event.number }}
