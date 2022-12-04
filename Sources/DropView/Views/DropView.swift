@@ -65,7 +65,7 @@ public struct DropView<Content: View, Leading: View, Trailing: View>: View {
             VStack(spacing: verticalSpacing) {
                 content.fixedSize()
             }.multilineTextAlignment(.center)
-            
+
             if case .default = balancing,
                !(leading is EmptyView),
                trailing is EmptyView {
