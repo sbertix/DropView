@@ -5,3 +5,5 @@
 xcuserdata/
 DerivedData/
 .swiftpm/
+/Example/build
+Package.resolved
