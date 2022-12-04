@@ -2,24 +2,24 @@ name:                        Release
 
 on:
   push:
-    branches:               [main]
+    branches:                [main]
 
 jobs:
   # lint code.
   lint:
-    name:               Lint
-    runs-on:            ubuntu-latest
+    name:                    Lint
+    runs-on:                 ubuntu-latest
 
     steps:
-      - name:           Checkout
-        uses:           actions/checkout@v3
+      - name:                Checkout
+        uses:                actions/checkout@v3
       # only lint on actual code changes.
-      - name:           Lint
-        uses:           norio-nomura/action-swiftlint@3.2.1
+      - name:                Lint
+        uses:                norio-nomura/action-swiftlint@3.2.1
         env:
-          DIFF_BASE:    ${{ github.event.push.before }}
+          DIFF_BASE:         ${{ github.event.push.before }}
         with:
-          args:         --strict
+          args:              --strict
 
   # build the library.
   build:
@@ -49,38 +49,14 @@ jobs:
     runs-on:                 ubuntu-latest
 
     steps:
-      # checkout `main`.
-      - name:                Checkout
-        id:                  checkout
-        uses:                actions/checkout@v3
+      - name:              Release version
+        id:                  release-version
+        uses:                tomtom-international/commisery-action/bump@v1
         with:
-          fetch-depth:       0
           token:             ${{ secrets.GITHUB_TOKEN }}
-          ref:               main
-      # create the changelog.
-      - name:                Changelog
-        id:                  changelog
-        uses:                TriPSs/conventional-changelog-action@v3
-        with:
-          git-message:       "chore(release): relase \'v{version}\'"
-          git-user-name:     "github-actions"
-          git-user-email:    "41898282+github-actions[bot]@users.noreply.github.com"
-          github-token:      ${{ secrets.GITHUB_TOKEN }}
-          tag-prefix:        ''
-          output-file:       'false'
-          skip-commit:       'true'
-          skip-version-file: 'true'
-      # release the new version.
-      - name:                Release
-        id:                  release
-        uses:                actions/create-release@v1
-        if:                  ${{ steps.changelog.outputs.skipped == 'false' }}
-        env:
-          GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name:          ${{ steps.changelog.outputs.tag }}
-          release_name:      v${{ steps.changelog.outputs.tag }}
-          body:              ${{ steps.changelog.outputs.clean_changelog }}
+          create-release:    true
+          create-tag:        true
+          version-prefix:    v
 
   # create docs.
   docs:
