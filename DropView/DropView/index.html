@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -26,7 +25,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#dropview.init(drop:)">init(drop:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#dropview.drop">drop</a></li><li class="variable"><a href="#dropview.body">body</a></li></ul></li></ol>
+            <ol><li><a href="#relationships">Relationships</a><ul><li><a href="#relationships">Conforms To</a></li></ul></li><li><a href="#initializers">Initializers</a><ul><li class="initializer"><a href="#dropview.init(content:trailing:)">init(content:​trailing:​)</a></li><li class="initializer"><a href="#dropview.init(content:leading:)">init(content:​leading:​)</a></li><li class="initializer"><a href="#dropview.init(content:)">init(content:​)</a></li><li class="initializer"><a href="#dropview.init(title:subtitle:leading:trailing:)">init(title:​subtitle:​leading:​trailing:​)</a></li><li class="initializer"><a href="#dropview.init(title:subtitle:trailing:)">init(title:​subtitle:​trailing:​)</a></li><li class="initializer"><a href="#dropview.init(title:subtitle:leading:)">init(title:​subtitle:​leading:​)</a></li><li class="initializer"><a href="#dropview.init(title:subtitle:)">init(title:​subtitle:​)</a></li><li class="initializer"><a href="#dropview.init(content:leading:trailing:)">init(content:​leading:​trailing:​)</a></li></ul></li><li><a href="#properties">Properties</a><ul><li class="variable"><a href="#dropview.body">body</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -38,10 +37,12 @@
 </h1>
 
 <div class="declaration">
-<pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">DropView</span>: <span class="type">View</span> </code></pre>
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">struct</span> <span class="type">DropView</span>&lt;<span class="variable">Content</span>: <span class="type">View</span>, <span class="variable">Leading</span>: <span class="type">View</span>, <span class="variable">Trailing</span>: <span class="type">View</span>&gt;: <span class="type">View</span>  </body></html></code></pre>
 </div>
 <div class="summary" role="doc-abstract">
-    <p>A <code>struct</code> defining a view displaying <code>Drop</code>s.</p>
+    <p>A <code>struct</code> defining the drop
+representation, together with its
+accessory views.</p>
 
 </div>
 <section id="relationships">
@@ -93,12 +94,15 @@
     <section id="initializers">
         <h2>Initializers</h2>
 
-        <div role="article" class="initializer" id="dropview.init(drop:)">
+        <div role="article" class="initializer" id="dropview.init(content:trailing:)">
     <h3>
-        <code>init(drop:​)</code>
+        <code><a href="#dropview.init(content:trailing:)">init(content:​trailing:​)</a></code>
     </h3>
     <div class="declaration">
-<pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">init</span>(<span class="variable">drop</span>: <span class="type">Drop</span>) </code></pre>
+<pre class="highlight"><code><html><body><span class="keyword">init</span>(
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">content</span>: () -&gt; <span class="type">Content</span>,
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">trailing</span>: () -&gt; <span class="type">Trailing</span>
+    ) <span class="keyword">where</span> <span class="type">Leading</span> == <span class="type">EmptyView</span>  </body></html></code></pre>
 </div>
 <div class="summary" role="doc-abstract">
     <p>Init.</p>
@@ -116,9 +120,321 @@
   </thead>
   <tbody>
     <tr>
-    <th>drop</th>
-    <td><code class="type">Drop</code></td>
-    <td><p>A valid <code>Drop</code>.</p>
+    <th>content</th>
+    <td><code class="type">() -&gt; Content</code></td>
+    <td><p>A valid <code>Content</code> factory.</p>
+</td>
+</tr>
+<tr>
+    <th>trailing</th>
+    <td><code class="type">() -&gt; Trailing</code></td>
+    <td><p>A valid <code>Trailing</code> factory.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="initializer" id="dropview.init(content:leading:)">
+    <h3>
+        <code><a href="#dropview.init(content:leading:)">init(content:​leading:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">init</span>(
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">content</span>: () -&gt; <span class="type">Content</span>,
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">leading</span>: () -&gt; <span class="type">Leading</span>
+    ) <span class="keyword">where</span> <span class="type">Trailing</span> == <span class="type">EmptyView</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Init.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>content</th>
+    <td><code class="type">() -&gt; Content</code></td>
+    <td><p>A valid <code>Content</code> factory.</p>
+</td>
+</tr>
+<tr>
+    <th>leading</th>
+    <td><code class="type">() -&gt; Leading</code></td>
+    <td><p>A valid <code>Leading</code> factory.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="initializer" id="dropview.init(content:)">
+    <h3>
+        <code><a href="#dropview.init(content:)">init(content:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">init</span>(<span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">content</span>: () -&gt; <span class="type">Content</span>) <span class="keyword">where</span> <span class="type">Leading</span> == <span class="type">EmptyView</span>, <span class="type">Trailing</span> == <span class="type">EmptyView</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Init.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>content</th>
+    <td><code class="type">() -&gt; Content</code></td>
+    <td><p>A valid <code>Content</code> factory.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="initializer" id="dropview.init(title:subtitle:leading:trailing:)">
+    <h3>
+        <code><a href="#dropview.init(title:subtitle:leading:trailing:)">init(title:​subtitle:​leading:​trailing:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">init</span>(
+        <span class="variable">title</span>: <span class="type">String</span>,
+        <span class="variable">subtitle</span>: <span class="type">String</span>? = <span class="keyword">nil</span>,
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">leading</span>: () -&gt; <span class="type">Leading</span>,
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">trailing</span>: () -&gt; <span class="type">Trailing</span>
+    ) <span class="keyword">where</span> <span class="type">Content</span> == <span class="type">TupleView</span>&lt;(<span class="type">Text</span>, <span class="type">Text</span>?)&gt;  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Init.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>title</th>
+    <td><code class="type">String</code></td>
+    <td><p>A valid <code>String</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>subtitle</th>
+    <td><code class="type">String?</code></td>
+    <td><p>An optional <code>String</code>. Defaults to <code>nil</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>leading</th>
+    <td><code class="type">() -&gt; Leading</code></td>
+    <td><p>A valid <code>Leading</code> factory.</p>
+</td>
+</tr>
+<tr>
+    <th>trailing</th>
+    <td><code class="type">() -&gt; Trailing</code></td>
+    <td><p>A valid <code>Trailing</code> factory.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="initializer" id="dropview.init(title:subtitle:trailing:)">
+    <h3>
+        <code><a href="#dropview.init(title:subtitle:trailing:)">init(title:​subtitle:​trailing:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">init</span>(
+        <span class="variable">title</span>: <span class="type">String</span>,
+        <span class="variable">subtitle</span>: <span class="type">String</span>? = <span class="keyword">nil</span>,
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">trailing</span>: () -&gt; <span class="type">Trailing</span>
+    ) <span class="keyword">where</span> <span class="type">Content</span> == <span class="type">TupleView</span>&lt;(<span class="type">Text</span>, <span class="type">Text</span>?)&gt;, <span class="type">Leading</span> == <span class="type">EmptyView</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Init.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>title</th>
+    <td><code class="type">String</code></td>
+    <td><p>A valid <code>String</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>subtitle</th>
+    <td><code class="type">String?</code></td>
+    <td><p>An optional <code>String</code>. Defaults to <code>nil</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>trailing</th>
+    <td><code class="type">() -&gt; Trailing</code></td>
+    <td><p>A valid <code>Trailing</code> factory.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="initializer" id="dropview.init(title:subtitle:leading:)">
+    <h3>
+        <code><a href="#dropview.init(title:subtitle:leading:)">init(title:​subtitle:​leading:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">init</span>(
+        <span class="variable">title</span>: <span class="type">String</span>,
+        <span class="variable">subtitle</span>: <span class="type">String</span>? = <span class="keyword">nil</span>,
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">leading</span>: () -&gt; <span class="type">Leading</span>
+    ) <span class="keyword">where</span> <span class="type">Content</span> == <span class="type">TupleView</span>&lt;(<span class="type">Text</span>, <span class="type">Text</span>?)&gt;, <span class="type">Trailing</span> == <span class="type">EmptyView</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Init.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>title</th>
+    <td><code class="type">String</code></td>
+    <td><p>A valid <code>String</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>subtitle</th>
+    <td><code class="type">String?</code></td>
+    <td><p>An optional <code>String</code>. Defaults to <code>nil</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>leading</th>
+    <td><code class="type">() -&gt; Leading</code></td>
+    <td><p>A valid <code>Leading</code> factory.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="initializer" id="dropview.init(title:subtitle:)">
+    <h3>
+        <code><a href="#dropview.init(title:subtitle:)">init(title:​subtitle:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">init</span>(
+        <span class="variable">title</span>: <span class="type">String</span>,
+        <span class="variable">subtitle</span>: <span class="type">String</span>? = <span class="keyword">nil</span>
+    ) <span class="keyword">where</span> <span class="type">Content</span> == <span class="type">TupleView</span>&lt;(<span class="type">Text</span>, <span class="type">Text</span>?)&gt;, <span class="type">Leading</span> == <span class="type">EmptyView</span>, <span class="type">Trailing</span> == <span class="type">EmptyView</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Init.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>title</th>
+    <td><code class="type">String</code></td>
+    <td><p>A valid <code>String</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>subtitle</th>
+    <td><code class="type">String?</code></td>
+    <td><p>An optional <code>String</code>. Defaults to <code>nil</code>.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+</div>
+<div role="article" class="initializer" id="dropview.init(content:leading:trailing:)">
+    <h3>
+        <code><a href="#dropview.init(content:leading:trailing:)">init(content:​leading:​trailing:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">init</span>(
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">content</span>: () -&gt; <span class="type">Content</span>,
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">leading</span>: () -&gt; <span class="type">Leading</span>,
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">trailing</span>: () -&gt; <span class="type">Trailing</span>
+    )  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Init.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>content</th>
+    <td><code class="type">() -&gt; Content</code></td>
+    <td><p>A valid <code>Content</code> factory.</p>
+</td>
+</tr>
+<tr>
+    <th>leading</th>
+    <td><code class="type">() -&gt; Leading</code></td>
+    <td><p>A valid <code>Leading</code> factory.</p>
+</td>
+</tr>
+<tr>
+    <th>trailing</th>
+    <td><code class="type">() -&gt; Trailing</code></td>
+    <td><p>A valid <code>Trailing</code> factory.</p>
 </td>
 </tr>
   </tbody>
@@ -128,27 +444,15 @@
     <section id="properties">
         <h2>Properties</h2>
 
-        <div role="article" class="variable" id="dropview.drop">
+        <div role="article" class="variable" id="dropview.body">
     <h3>
-        <code>drop</code>
+        <code><a href="#dropview.body">body</a></code>
     </h3>
     <div class="declaration">
-<pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">let</span> <span class="variable">drop</span>: <span class="type">Drop</span></code></pre>
+<pre class="highlight"><code><html><body><span class="keyword">public</span> <span class="keyword">var</span> <span class="variable">body</span>: <span class="keyword">some</span> <span class="type">View</span>  </body></html></code></pre>
 </div>
 <div class="summary" role="doc-abstract">
-    <p>The underlying drop.</p>
-
-</div>
-</div>
-<div role="article" class="variable" id="dropview.body">
-    <h3>
-        <code>body</code>
-    </h3>
-    <div class="declaration">
-<pre class="highlight"><code><span class="keyword">public</span> <span class="keyword">var</span> <span class="variable">body</span>: <span class="keyword">some</span> <span class="type">View</span> </code></pre>
-</div>
-<div class="summary" role="doc-abstract">
-    <p>The body.</p>
+    <p>The underlying view.</p>
 
 </div>
 </div>
@@ -161,7 +465,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-05-21T10:06:12+0000">May 21, 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.6</span>.
+    Generated on <time datetime="2022-12-04T00:38:44+0000">December 4, 2022</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>

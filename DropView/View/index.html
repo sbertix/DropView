@@ -14,7 +14,6 @@
             </strong>
             <span>Documentation</span>
         </a>
-        <sup>Beta</sup>
     </header>
 
     <!--
@@ -26,7 +25,7 @@
     <nav>
         <div class="wrapper">
             <h2>On This Page</h2>
-            <ol><li><a href="#methods">Methods</a><ul><li class="function"><a href="#view.drop(_:hidingafter:alignment:)">drop(_:​hiding​After:​alignment:​)</a></li></ul></li></ol>
+            <ol><li><a href="#methods">Methods</a><ul><li class="function"><a href="#view.drop(item:alignment:dismissingafter:content:)">drop(item:​alignment:​dismissing​After:​content:​)</a></li><li class="function"><a href="#view.drop(ispresented:alignment:dismissingafter:content:)">drop(is​Presented:​alignment:​dismissing​After:​content:​)</a></li><li class="function"><a href="#view.dropviewbalancing(_:)">drop​View​Balancing(_:​)</a></li><li class="function"><a href="#view.dropviewseparatorcolor(_:)">drop​View​Separator​Color(_:​)</a></li><li class="function"><a href="#view.dropviewshadow(_:)">drop​View​Shadow(_:​)</a></li><li class="function"><a href="#view.dropviewshadow(color:radius:x:y:)">drop​View​Shadow(color:​radius:​x:​y:​)</a></li><li class="function"><a href="#view.shadow(_:)">shadow(_:​)</a></li><li class="function"><a href="#view.dropviewbackgroundcolor(_:)">drop​View​Background​Color(_:​)</a></li></ul></li></ol>
         </div>
     </nav>
 
@@ -39,17 +38,20 @@
     <section id="methods">
         <h2>Methods</h2>
 
-        <div role="article" class="function" id="view.drop(_:hidingafter:alignment:)">
+        <div role="article" class="function" id="view.drop(item:alignment:dismissingafter:content:)">
     <h3>
-        <code>drop(_:​hiding​After:​alignment:​)</code>
+        <code><a href="#view.drop(item:alignment:dismissingafter:content:)">drop(item:​alignment:​dismissing​After:​content:​)</a></code>
     </h3>
     <div class="declaration">
-<pre class="highlight"><code><span class="keyword">func</span> <span class="function">drop</span>(<span class="keyword">_</span> <span class="variable">drop</span>: <span class="type">Binding</span>&lt;<span class="type">Drop</span>?&gt;,
-              <span class="variable">hidingAfter</span> <span class="variable">seconds</span>: <span class="type">TimeInterval</span> = <span class="number literal">2</span>,
-              <span class="variable">alignment</span>: <span class="type">VerticalAlignment</span> = .<span class="variable">top</span>) -&gt; <span class="keyword">some</span> <span class="type">View</span> </code></pre>
+<pre class="highlight"><code><html><body><span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="keyword">func</span> <span class="function">drop</span>&lt;<span class="variable">I</span>: <span class="type">Identifiable</span>, <span class="variable">C</span>: <span class="type">View</span>, <span class="variable">L</span>: <span class="type">View</span>, <span class="variable">T</span>: <span class="type">View</span>&gt;(
+        <span class="variable">item</span>: <span class="type">Binding</span>&lt;<span class="type">I</span>?&gt;,
+        <span class="variable">alignment</span>: <span class="type">VerticalAlignment</span> = .<span class="variable">top</span>,
+        <span class="variable">dismissingAfter</span> <span class="variable">timer</span>: <span class="type">TimeInterval</span> = <span class="number literal">2</span>,
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">content</span>: <span class="attribute">@</span><span class="attribute">escaping</span> (<span class="type">I</span>) -&gt; <a href="https://sbertix.github.io/DropView/DropView/DropView"><span class="type">DropView</span></a>&lt;<span class="type">C</span>, <span class="type">L</span>, <span class="type">T</span>&gt;
+    ) -&gt; <span class="keyword">some</span> <span class="type">View</span>  </body></html></code></pre>
 </div>
 <div class="summary" role="doc-abstract">
-    <p>Present a valid <code>Drop</code>.</p>
+    <p>Overlay a drop view.</p>
 
 </div>
 <h4>Parameters</h4>
@@ -64,21 +66,311 @@
   </thead>
   <tbody>
     <tr>
-    <th>drop</th>
-    <td><code class="type">Binding&lt;Drop?&gt;</code></td>
-    <td><p>An optional <code>Drop</code> binding.</p>
-</td>
-</tr>
-<tr>
-    <th>seconds</th>
-    <td><code class="type">Time​Interval</code></td>
-    <td><p>A valid <code>TimeInterval</code>. Defaults to <code>2</code>.</p>
+    <th>is​Presented</th>
+    <td></td>
+    <td><p>An optional <code>Identifiable</code> binding.</p>
 </td>
 </tr>
 <tr>
     <th>alignment</th>
     <td><code class="type">Vertical​Alignment</code></td>
     <td><p>A valid <code>VerticalAlignment</code>. Defaults to <code>.top</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>timer</th>
+    <td><code class="type">Time​Interval</code></td>
+    <td><p>The time before it gets autodismissed. Defaults to <code>2</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>content</th>
+    <td><code class="type">@escaping (I) -&gt; Drop​View&lt;C, L, T&gt;</code></td>
+    <td><p>The drop view factory.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>Some <code>View</code>.</p>
+
+</div>
+<div role="article" class="function" id="view.drop(ispresented:alignment:dismissingafter:content:)">
+    <h3>
+        <code><a href="#view.drop(ispresented:alignment:dismissingafter:content:)">drop(is​Presented:​alignment:​dismissing​After:​content:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="keyword">func</span> <span class="function">drop</span>&lt;<span class="variable">C</span>: <span class="type">View</span>, <span class="variable">L</span>: <span class="type">View</span>, <span class="variable">T</span>: <span class="type">View</span>&gt;(
+        <span class="variable">isPresented</span>: <span class="type">Binding</span>&lt;<span class="type">Bool</span>&gt;,
+        <span class="variable">alignment</span>: <span class="type">VerticalAlignment</span> = .<span class="variable">top</span>,
+        <span class="variable">dismissingAfter</span> <span class="variable">timer</span>: <span class="type">TimeInterval</span> = <span class="number literal">2</span>,
+        <span class="attribute">@</span><span class="type">ViewBuilder</span> <span class="variable">content</span>: <span class="attribute">@</span><span class="attribute">escaping</span> () -&gt; <a href="https://sbertix.github.io/DropView/DropView/DropView"><span class="type">DropView</span></a>&lt;<span class="type">C</span>, <span class="type">L</span>, <span class="type">T</span>&gt;
+    ) -&gt; <span class="keyword">some</span> <span class="type">View</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Overlay a drop view.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>is​Presented</th>
+    <td><code class="type">Binding&lt;Bool&gt;</code></td>
+    <td><p>An optional <code>Bool</code> binding.</p>
+</td>
+</tr>
+<tr>
+    <th>alignment</th>
+    <td><code class="type">Vertical​Alignment</code></td>
+    <td><p>A valid <code>VerticalAlignment</code>. Defaults to <code>.top</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>timer</th>
+    <td><code class="type">Time​Interval</code></td>
+    <td><p>The time before it gets autodismissed. Defaults to <code>2</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>content</th>
+    <td><code class="type">@escaping () -&gt; Drop​View&lt;C, L, T&gt;</code></td>
+    <td><p>The drop view factory.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>Some <code>View</code>.</p>
+
+</div>
+<div role="article" class="function" id="view.dropviewbalancing(_:)">
+    <h3>
+        <code><a href="#view.dropviewbalancing(_:)">drop​View​Balancing(_:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">func</span> <span class="function">dropViewBalancing</span>(<span class="keyword">_</span> <span class="variable">balancing</span>: <a href="https://sbertix.github.io/DropView/DropView/Balancing"><span class="type">Balancing</span></a>) -&gt; <span class="keyword">some</span> <span class="type">View</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Update the drop view <code>Balancing</code> style.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>balancing</th>
+    <td><code class="type">Balancing</code></td>
+    <td><p>A valid <code>Balancing</code>.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>Some <code>View</code>.</p>
+
+</div>
+<div role="article" class="function" id="view.dropviewseparatorcolor(_:)">
+    <h3>
+        <code><a href="#view.dropviewseparatorcolor(_:)">drop​View​Separator​Color(_:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">func</span> <span class="function">dropViewSeparatorColor</span>(<span class="keyword">_</span> <span class="variable">separatorColor</span>: <span class="type">Color</span>) -&gt; <span class="keyword">some</span> <span class="type">View</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Update the drop view separator color style.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>separator​Color</th>
+    <td><code class="type">Color</code></td>
+    <td><p>A valid <code>Color</code>.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>Some <code>View</code>.</p>
+
+</div>
+<div role="article" class="function" id="view.dropviewshadow(_:)">
+    <h3>
+        <code><a href="#view.dropviewshadow(_:)">drop​View​Shadow(_:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">func</span> <span class="function">dropViewShadow</span>(<span class="keyword">_</span> <span class="variable">shadow</span>: <a href="https://sbertix.github.io/DropView/DropView/Shadow"><span class="type">Shadow</span></a>) -&gt; <span class="keyword">some</span> <span class="type">View</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Update the drop view separator shadow style.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>shadow</th>
+    <td><code class="type">Shadow</code></td>
+    <td><p>A valid <code>Shadow</code>.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>Some <code>View</code>.</p>
+
+</div>
+<div role="article" class="function" id="view.dropviewshadow(color:radius:x:y:)">
+    <h3>
+        <code><a href="#view.dropviewshadow(color:radius:x:y:)">drop​View​Shadow(color:​radius:​x:​y:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">func</span> <span class="function">dropViewShadow</span>(
+        <span class="variable">color</span>: <span class="type">Color</span> = .<span class="variable">black</span>,
+        <span class="variable">radius</span>: <span class="type">CGFloat</span>,
+        <span class="variable">x</span>: <span class="type">CGFloat</span> = <span class="number literal">0</span>,
+        <span class="variable">y</span>: <span class="type">CGFloat</span> = <span class="number literal">0</span>
+    ) -&gt; <span class="keyword">some</span> <span class="type">View</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Update the drop view separator shadow style.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>color</th>
+    <td><code class="type">Color</code></td>
+    <td><p>The shadow color. Defaults to <code>.black</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>radius</th>
+    <td><code class="type">CGFloat</code></td>
+    <td><p>The shadow radius.</p>
+</td>
+</tr>
+<tr>
+    <th>x</th>
+    <td><code class="type">CGFloat</code></td>
+    <td><p>The shadow x offset. Defaults to <code>0</code>.</p>
+</td>
+</tr>
+<tr>
+    <th>y</th>
+    <td><code class="type">CGFloat</code></td>
+    <td><p>The shadow y offset. Defaults to <code>0</code>.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>Some <code>View</code>.</p>
+
+</div>
+<div role="article" class="function" id="view.shadow(_:)">
+    <h3>
+        <code><a href="#view.shadow(_:)">shadow(_:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">func</span> <span class="function">shadow</span>(<span class="keyword">_</span> <span class="variable">shadow</span>: <a href="https://sbertix.github.io/DropView/DropView/Shadow"><span class="type">Shadow</span></a>) -&gt; <span class="keyword">some</span> <span class="type">View</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Apply a given <code>Shadow</code>.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>shadow</th>
+    <td><code class="type">Shadow</code></td>
+    <td><p>A valid <code>Shadow</code>.</p>
+</td>
+</tr>
+  </tbody>
+</table>
+  <h4>Returns</h4>
+  <p>Some <code>View</code>.</p>
+
+</div>
+<div role="article" class="function" id="view.dropviewbackgroundcolor(_:)">
+    <h3>
+        <code><a href="#view.dropviewbackgroundcolor(_:)">drop​View​Background​Color(_:​)</a></code>
+    </h3>
+    <div class="declaration">
+<pre class="highlight"><code><html><body><span class="keyword">func</span> <span class="function">dropViewBackgroundColor</span>(<span class="keyword">_</span> <span class="variable">backgroundColor</span>: <span class="type">Color</span>) -&gt; <span class="keyword">some</span> <span class="type">View</span>  </body></html></code></pre>
+</div>
+<div class="summary" role="doc-abstract">
+    <p>Update the drop view background color style.</p>
+
+</div>
+<h4>Parameters</h4>
+
+<table class="parameters">
+  <thead hidden>
+  <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <th>background​Color</th>
+    <td><code class="type">Color</code></td>
+    <td><p>A valid <code>Color</code>.</p>
 </td>
 </tr>
   </tbody>
@@ -93,7 +385,7 @@
 
     <footer>
         <p>
-    Generated on <time datetime="2021-05-21T10:06:12+0000">May 21, 2021</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-beta.6</span>.
+    Generated on <time datetime="2022-12-04T00:38:44+0000">December 4, 2022</time> using <a href="https://github.com/SwiftDocOrg/swift-doc">swift-doc</a> <span class="version">1.0.0-rc.1</span>.
 </p>
     </footer>
 </body>
