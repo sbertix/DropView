@@ -17,11 +17,11 @@
 <p />
 
 ## Status
-[![Swift](https://img.shields.io/badge/Swift-5.2-%239872AB?style=flat&logo=swift)](https://swift.org)
-![iOS](https://img.shields.io/badge/iOS-13.0-9872AB)
-![macOS](https://img.shields.io/badge/macOS-10.15-9872AB)
-![tvOS](https://img.shields.io/badge/tvOS-13.0-9872AB)
-![watchOS](https://img.shields.io/badge/watchOS-6.0-9872AB)
+[![Swift](https://img.shields.io/badge/Swift-5.7-%239872AB?style=flat&logo=swift)](https://swift.org)
+![iOS](https://img.shields.io/badge/iOS-14.0-9872AB)
+![macOS](https://img.shields.io/badge/macOS-11.0-9872AB)
+![tvOS](https://img.shields.io/badge/tvOS-14.0-9872AB)
+![watchOS](https://img.shields.io/badge/watchOS-7.0-9872AB)
 <br />
 [![checks](https://github.com/sbertix/DropView/actions/workflows/push.yml/badge.svg?branch=main)](https://github.com/sbertix/DropView/actions/workflows/push.yml)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/sbertix/DropView)
