@@ -10,7 +10,7 @@ import SwiftUI
 
 public extension DropView {
     // MARK: Empty factories
-    
+
     /// Init.
     ///
     /// - parameters:
@@ -26,7 +26,7 @@ public extension DropView {
             trailing: trailing
         )
     }
-    
+
     /// Init.
     ///
     /// - parameters:
@@ -42,7 +42,7 @@ public extension DropView {
             trailing: { EmptyView() }
         )
     }
-    
+
     /// Init.
     ///
     /// - parameter content: A valid `Content` factory.
@@ -53,9 +53,9 @@ public extension DropView {
             trailing: { EmptyView() }
         )
     }
-    
+
     // MARK: Title + subtitle
-    
+
     /// Init.
     ///
     /// - parameters:
@@ -78,7 +78,7 @@ public extension DropView {
             trailing: trailing
         )
     }
-    
+
     /// Init.
     ///
     /// - parameters:
@@ -97,7 +97,7 @@ public extension DropView {
             trailing: trailing
         )
     }
-    
+
     /// Init.
     ///
     /// - parameters:
@@ -116,7 +116,7 @@ public extension DropView {
             trailing: { EmptyView() }
         )
     }
-    
+
     /// Init.
     ///
     /// - parameters:

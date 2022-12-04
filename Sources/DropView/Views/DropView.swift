@@ -16,7 +16,7 @@ public struct DropView<Content: View, Leading: View, Trailing: View>: View {
     @Environment(\.pixelLength) private var pixelLength
     /// The current layout direction.
     @Environment(\.layoutDirection) private var layoutDirection
-    
+
     /// The current drop view background color.
     @Environment(\.dropViewBackgroundColor) private var backgroundColor
     /// The current drop view balancing.
@@ -27,22 +27,22 @@ public struct DropView<Content: View, Leading: View, Trailing: View>: View {
     @Environment(\.dropViewShadow) private var shadow
 
     /// The current accessory width. Defaults to `nil`.
-    @State private var accessoryWidth: CGFloat? = nil
-    
+    @State private var accessoryWidth: CGFloat?
+
     /// The padding between components.
     @ScaledMetric(relativeTo: .headline) private var horizontalSpacing: CGFloat = 12
     /// The padding between content components.
     @ScaledMetric(relativeTo: .footnote) private var verticalSpacing: CGFloat = 2
     /// The padding to the background.
     @ScaledMetric private var padding: CGFloat = 12.5
-    
+
     /// The drop view content.
     private let content: Content
     /// The leading accessory view.
     private let leading: Leading
     /// The trailing accesory view.
     private let trailing: Trailing
-    
+
     /// The underlying view.
     public var body: some View {
         HStack(spacing: horizontalSpacing) {
@@ -84,7 +84,7 @@ public struct DropView<Content: View, Leading: View, Trailing: View>: View {
         .clipShape(Capsule())
         .shadow(shadow)
     }
-    
+
     /// Init.
     ///
     /// - parameters:
@@ -115,7 +115,7 @@ private struct NewDropViewWidthPreferenceKey: PreferenceKey {
 
 #if DEBUG
 /// A `struct` defining the drop view preview context.
-struct Previews_NewDropView_Previews: PreviewProvider {
+struct Previews_DropView_Previews: PreviewProvider { // swiftlint:disable:this type_name
     static var previews: some View {
         DropView {
             Text("DropView")
@@ -137,7 +137,7 @@ struct Previews_NewDropView_Previews: PreviewProvider {
         .padding(40)
         .previewLayout(.sizeThatFits)
         .previewDisplayName("Light")
-        
+
         DropView {
             Text("DropView")
                 .font(.headline)
@@ -160,7 +160,7 @@ struct Previews_NewDropView_Previews: PreviewProvider {
         .padding(40)
         .previewLayout(.sizeThatFits)
         .previewDisplayName("Dark Compact")
-        
+
         DropView(
             title: "DropView",
             subtitle: "github.com/sbertix/DropView"

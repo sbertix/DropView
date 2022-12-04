@@ -14,7 +14,7 @@ import SwiftUI
 private struct ItemDropViewPresenter<Item: Identifiable, C: View, L: View, R: View>: ViewModifier {
     /// The drag gesture translation.
     @GestureState var translation: CGFloat = 0
-    
+
     /// A binding to whether it's being presented or not.
     @Binding var item: Item?
     /// The vertical alignment.
@@ -23,7 +23,7 @@ private struct ItemDropViewPresenter<Item: Identifiable, C: View, L: View, R: Vi
     let timer: TimeInterval
     /// The drop view factory.
     let dropView: (Item) -> DropView<C, L, R>
-    
+
     /// The associated transition edge.
     private var edge: Edge {
         switch alignment {
@@ -32,7 +32,7 @@ private struct ItemDropViewPresenter<Item: Identifiable, C: View, L: View, R: Vi
         default: return .top
         }
     }
-    
+
     /// Compose the view.
     ///
     /// - parameter content: Some `Content`.

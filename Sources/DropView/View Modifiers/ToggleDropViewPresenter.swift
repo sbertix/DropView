@@ -23,7 +23,7 @@ private struct ToggleDropViewPresenter<C: View, L: View, R: View>: ViewModifier 
     let timer: TimeInterval
     /// The drop view factory.
     let dropView: () -> DropView<C, L, R>
-    
+
     /// The associated transition edge.
     private var edge: Edge {
         switch alignment {
@@ -32,7 +32,7 @@ private struct ToggleDropViewPresenter<C: View, L: View, R: View>: ViewModifier 
         default: return .top
         }
     }
-    
+
     /// Compose the view.
     ///
     /// - parameter content: Some `Content`.

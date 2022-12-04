@@ -19,7 +19,7 @@ public struct Shadow {
     let x: CGFloat
     /// The shadow y offset. Defaults to `0`.
     let y: CGFloat
-    
+
     /// Init.
     ///
     /// - parameters:
@@ -40,18 +40,6 @@ public struct Shadow {
     }
 }
 
-/// A `struct` defining a custom environment
-/// key used to handle shadows in drop views.
-private struct ShadowEnvironmentKey: EnvironmentKey {
-    /// The default value.
-    static let defaultValue: Shadow = .init(
-        color: .black.opacity(0.15),
-        radius: 18,
-        x: 0,
-        y: 0
-    )
-}
-
 public extension EnvironmentValues {
     /// Enforce a custom drop view shadow style.
     var dropViewShadow: Shadow {
@@ -68,7 +56,7 @@ public extension View {
     func dropViewShadow(_ shadow: Shadow) -> some View {
         environment(\.dropViewShadow, shadow)
     }
-    
+
     /// Update the drop view separator shadow style.
     ///
     /// - parameters:
@@ -85,7 +73,7 @@ public extension View {
     ) -> some View {
         dropViewShadow(.init(color: color, radius: radius, x: x, y: y))
     }
-    
+
     /// Apply a given `Shadow`.
     ///
     /// - parameter shadow: A valid `Shadow`.
@@ -98,4 +86,16 @@ public extension View {
             y: shadow.y
         )
     }
+}
+
+/// A `struct` defining a custom environment
+/// key used to handle shadows in drop views.
+private struct ShadowEnvironmentKey: EnvironmentKey {
+    /// The default value.
+    static let defaultValue: Shadow = .init(
+        color: .black.opacity(0.15),
+        radius: 18,
+        x: 0,
+        y: 0
+    )
 }

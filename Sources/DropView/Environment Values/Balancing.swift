@@ -16,18 +16,11 @@ public enum Balancing {
     /// and `trailing` have the same relative
     /// width.
     case `default`
-    
+
     /// `content` is not centered, and `leading`
     /// and `trailing` are not guaranteed to
     /// have the same relative width.
     case compact
-}
-
-/// A `struct` defining a custom environment
-/// key used to handle balancing in drop views.
-private struct BalancingEnvironmentKey: EnvironmentKey {
-    /// The default value.
-    static let defaultValue: Balancing = .default
 }
 
 public extension EnvironmentValues {
@@ -46,4 +39,11 @@ public extension View {
     func dropViewBalancing(_ balancing: Balancing) -> some View {
         environment(\.dropViewBalancing, balancing)
     }
+}
+
+/// A `struct` defining a custom environment
+/// key used to handle balancing in drop views.
+private struct BalancingEnvironmentKey: EnvironmentKey {
+    /// The default value.
+    static let defaultValue: Balancing = .default
 }
