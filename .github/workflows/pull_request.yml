@@ -1,0 +1,58 @@
+name:                   Pull Request
+
+on:
+  pull_request:
+    branches:           [main]
+    types:              [opened, synchronize, closed]
+
+jobs:
+  # pull request-sepcific steps.
+  validate_commits:
+    name:               Conventional Commits
+    runs-on:            ubuntu-latest
+
+    steps:
+      - name:           Checkout
+        uses:           actions/checkout@v3
+      # validate commits.
+      - name:           Validate commits
+        uses:           tomtom-international/commisery-action@master
+        with:
+          token:        ${{ secrets.GITHUB_TOKEN }}
+
+  # lint code.
+  lint:
+    name:               Lint
+    runs-on:            ubuntu-latest
+
+    steps:
+      - name:           Checkout
+        uses:           actions/checkout@v3
+      # only lint on actual code changes.
+      - name:           Lint
+        uses:           norio-nomura/action-swiftlint@3.2.1
+        env:
+          DIFF_BASE:    ${{ github.base_ref }}
+        with:
+          args:         --strict
+
+  # build the library.
+  build:
+    name:               Build
+    needs:              lint
+    runs-on:            macos-latest
+
+    steps:
+      - name:           Checkout
+        uses:           actions/checkout@v3
+      # only build on actual code changes.
+      - uses:           dorny/paths-filter@v2
+        id:             changes
+        with:
+          base:         ${{ github.base_ref }}
+          filters:      |
+            src:
+              - '**/*.swift'
+      - name:           Build
+        if:             steps.changes.outputs.src == 'true'
+        run:            swift build
